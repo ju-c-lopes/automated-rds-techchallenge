@@ -54,7 +54,7 @@ export AWS_SECRET_ACCESS_KEY="${aws_secret_key}"
 terraform init
 terraform apply -auto-approve
 
-echo "Instância RDS iniciada!"
+echo "RDS instance started!"
 
 RDS_HOST=$(terraform output -raw rds_endpoint | cut -d':' -f1)
 
@@ -77,11 +77,6 @@ for ((i=1; i<=MAX_RETRIES; i++)); do
     echo "RDS not available yet. Retrying in $RETRY_INTERVAL seconds... ($i/$MAX_RETRIES)"
     sleep "$RETRY_INTERVAL"
 done
-
-echo "Usuário MySQL: $RDS_USER"
-echo "Senha MySQL: $RDS_PASS"
-echo "Host MySQL: $RDS_HOST"
-echo "Banco de dados: $RDS_DB_NAME"
 
 sleep 10
 # Cria o banco caso não exista
